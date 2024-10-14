@@ -1,0 +1,13 @@
+my-aws
+
+A command suite to manipulate ec2 instances.
+
+CAVEAT: Currently hardcoded to a particular
+aws user profile called 'showme'.
+
+INSTALLATION:
+    Run ./install.sh from this directory.  It will
+    create symlink
+
+        ${HOME}/.local/bin/my-aws -> ./bin/my-aws
+

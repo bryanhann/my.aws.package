@@ -1,0 +1,89 @@
+#!/usr/bin/env python3
+import sys
+from pathlib import Path
+
+BOLD = "\033[1m"
+END = "\033[0m"
+THIS = Path(__file__).resolve()
+ROOT = THIS.parent
+PACKAGEBIN = ROOT/'bin'
+USERBIN = Path.home()/'.local/bin'
+
+class Namespace:
+    pass
+
+def unlink(pth):
+    pth.is_symlink() and pth.unlink()
+
+def USAGE():
+    print(USAGEDOC)
+
+USAGEDOC=f"""\
+{BOLD}INSTALL PACKAGE [{ROOT}]{END}
+
+USAGE:
+    ./{BOLD}{THIS.name}{END}
+        {BOLD}--install{END}        (Install the package)
+        {BOLD}--uninstall{END}      (Uninstall the package)
+        {BOLD}--userbin <PATH>{END} (Override {BOLD}<userbin>{END})
+
+    Exactly one of the flags --install/--uninstall must be supplied
+
+    Installation is done by creating symlinks
+        {BOLD}<userbin>{END}/* -> {BOLD}<packagebin>{END}/*
+
+PATHS:
+    {BOLD}<root>{END}
+        [{ROOT}]
+        The root of the package
+    {BOLD}<packagebin>{END}
+        [{PACKAGEBIN}]
+        The package's executable scripts
+    {BOLD}<userbin>{END}
+        [~/.local/bin]
+        The location of symlinks to the package's executables.
+        Overrideable by --userbin
+"""
+
+def parse():
+    O=Namespace()
+    O.userbin = USERBIN
+    O.install = False
+    O.uninstall = False
+
+    args=sys.argv[1:]
+    if not args  or '-h' in args or '--help' in args: exit(USAGE())
+
+    args+=['']
+
+    while args:
+        head = args.pop(0)
+        if   head=='--install'  : O.install =  True
+        elif head=='--uninstall': O.uninstall = True
+        elif head=='--userbin'  : O.userbin = args.pop(0)
+        elif head==''           : pass
+        else: exit( f'Unknown arg: [{head}]\ntry --help' )
+
+    if not (O.userbin and Path(O.userbin).is_dir()):
+        exit( f'--userbin [{O.userbin}] is not a dir' )
+    if O.install and O.uninstall:
+        exit( 'choose either --install/--uninstall' )
+    if not (O.install or O.uninstall):
+        exit()
+
+    O.userbin = Path(O.userbin)
+    return O
+
+def main():
+    OPT = parse()
+    for real in PACKAGEBIN.glob('*'):
+        link = OPT.userbin/real.name
+        unlink(link)
+        if OPT.install:
+            print( f'linking {BOLD}{link}{END} -> {BOLD}{real}{END}' )
+            link.symlink_to(real)
+        else:
+            print( f'unlinking {BOLD}{link}{END}' )
+
+if __name__ == '__main__':
+    main()
