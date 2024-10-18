@@ -4,9 +4,11 @@ import subprocess
 import aws.instance
 import pathlib
 import sys
-from aws.util import stderr
-from aws.util import bold
+from util import stderr
+from util import bold
+
 from aws.instance import Instance
+
 TMP=pathlib.Path.home()/'tmp'
 TMP.is_dir() or TMP.mkdir()
 SRC=TMP/'tmp.aws.output'

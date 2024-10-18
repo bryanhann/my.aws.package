@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+SCRIPT=${MY_ROOT}/scripts/$(basename $1)
+shift
+PYTHONPATH=${MY_ROOT}/lib
+uv python install 3.12
+uv run \
+    --python 3.12 \
+    --with click \
+    --with colorama \
+    $SCRIPT $*

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+THIS=$(python3 -c "from pathlib import Path;print(Path('$0').resolve())")
+export MY_ROOT=$(dirname $(dirname $THIS))
+${MY_ROOT}/env/run $THIS "$@"
