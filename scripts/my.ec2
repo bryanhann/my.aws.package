@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+import subprocess
+
+import click
+import config
+
+import callbacks as CB
+from util import ezrun as EZRUN
+from ec2 import Command_Runner
+
+RUNNER=Command_Runner( cmd='aws ec2' )
+
+@click.group()
+@click.pass_context
+@click.option('--X-out/--no-X-out', callback=CB.meta(), default=True)
+@click.option('--X-err/--no-X-err', callback=CB.meta(), default=True)
+@click.option('--profile',          callback=CB.opt(), default=config.PROFILE)
+@click.option('--x-show',           callback=CB.meta(), is_flag=True, default=True)
+@click.option('--x-dry',            callback=CB.meta(), is_flag=True, default=False)
+@click.option('--dry-run',          callback=CB.flag(), is_flag=True, flag_value=True)
+
+def keys(ctx,**opts):
+    pass
+
+@keys.command()
+@click.pass_context
+@click.option('--output', callback=CB.opt(), default='text', help='default: text')
+@click.option('--query',  callback=CB.opt(), default='KeyPairs[*].KeyName' )
+@click.option('--x-prefix',  callback=CB.post(), default='')
+
+def keys_list(ctx,**_):
+    it = ctx.obj( "describe-key-pairs", die=True)
+    names = it.stdout.split()
+    names = [x for x in names if x.startswith(ctx.obj.post.prefix)]
+    print(' '.join(names))
+
+@keys.command()
+@click.pass_context
+@click.option('--output', callback=CB.opt(), default='text', help='default: text')
+@click.option('--query',  callback=CB.opt(), default='KeyMaterial')
+@click.argument( 'name' )
+
+def keys_create(ctx,name,**opts):
+    ctx.obj.add_option( 'key-name', name )
+    ctx.obj( "create-key-pair").normal()
+
+@keys.command()
+@click.pass_context
+@click.option('--output', callback=CB.opt, default='text', help='default: text')
+@click.argument( 'name' )
+
+def keys_delete(ctx,name,**_):
+    ctx.obj.add_option( 'key-name', name )
+    ctx.obj( "delete-key-pair").normal()
+
+@keys.command()
+@click.pass_context
+def keys_tmp_cleanup(ctx,**x):
+    x=ctx.obj.x
+    line=f'my.ec2 {x.profile} keys-list --x-prefix tmp.'
+    for name in EZRUN( line, show=True ).stdout.split():
+        line=f'my.ec2 {x.profile} keys-delete {name}'
+        EZRUN(line, capture=False)
+    exit('done')
+
+if __name__=='__main__':
+    keys(obj=RUNNER)
