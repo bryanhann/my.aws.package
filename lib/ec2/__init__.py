@@ -6,6 +6,7 @@ from util import bold as BOLD
 from util import stderr as ERR
 from util import stdout as OUT
 
+
 class Wrap:
     def __init__(self, it, parent, *a,**b):
         self.stdout =  it.stdout.decode('utf-8')
@@ -14,6 +15,9 @@ class Wrap:
         self.parent = parent
         ('die' in b) and self.error_and_die()
     def normal(self):
+        meta = self.parent.meta
+        if not hasattr(meta,'out'): meta.out=True
+        if not hasattr(meta,'err'): meta.err=True
         self.parent.meta.out and OUT(self.stdout)
         self.parent.meta.err and ERR(self.stderr)
     def error_and_die(self):
