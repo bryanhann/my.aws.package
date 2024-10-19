@@ -1,0 +1,53 @@
+#!/usr/bin/env python3
+import subprocess
+
+import click
+import config
+
+import callbacks as CB
+from util import ezrun as EZRUN
+from ec2 import Command_Runner
+
+RUNNER=Command_Runner( cmd='aws ec2' )
+
+#==========================================================
+#
+@click.group()
+@click.pass_context
+@click.option('--X-out/--no-X-out', callback=CB.meta(), default=True)
+@click.option('--X-err/--no-X-err', callback=CB.meta(), default=True)
+@click.option('--profile',          callback=CB.opt(), default=config.PROFILE)
+@click.option('--x-show',           callback=CB.meta(), is_flag=True, default=True)
+@click.option('--x-dry',            callback=CB.meta(), is_flag=True, default=False)
+@click.option('--dry-run',          callback=CB.flag(), is_flag=True, flag_value=True)
+
+def cli(ctx,**opts):
+    pass
+
+class Usage(Exception): pass
+def setopt(ctx, opts, argval, optname ):
+    values = [ x for x in (argval,opts[optname]) if not x is None]
+    if len(values)<1: raise Usage("name needed somehow")
+    if len(values)>1: raise Usage( "cannot do both" )
+    ctx.obj.add_option( optname, values[0] )
+
+@cli.command()
+@click.pass_context
+@click.option('--output', callback=CB.opt(), default='text', help='default: text')
+@click.option('--query',  callback=CB.opt(), default='KeyMaterial')
+@click.option('--key-name', required=False, default=None)
+@click.argument( 'name', required=False )
+
+def keys_create(ctx,name,**opts):
+    """Create a keypair using argument or option. This can be done in two ways:
+
+           1) create-key-pair NAME\n
+           2) create-key-pair --key-name NAME
+
+    Exactly one way must be used (they cannot be mixed).
+    """
+    setopt(ctx,opts,name,'key_name')
+    ctx.obj( "create-key-pair").normal()
+
+if __name__=='__main__':
+    cli(obj=RUNNER)
