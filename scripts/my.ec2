@@ -10,58 +10,140 @@ from ec2 import Command_Runner
 
 RUNNER=Command_Runner( cmd='aws ec2' )
 
+#######################################################3###
 @click.group()
 @click.pass_context
-@click.option('--X-out/--no-X-out', callback=CB.meta(), default=True)
-@click.option('--X-err/--no-X-err', callback=CB.meta(), default=True)
-@click.option('--profile',          callback=CB.opt(), default=config.PROFILE)
-@click.option('--x-show',           callback=CB.meta(), is_flag=True, default=True)
-@click.option('--x-dry',            callback=CB.meta(), is_flag=True, default=False)
-@click.option('--dry-run',          callback=CB.flag(), is_flag=True, flag_value=True)
+@click.option(
+    '--x-out/--no-x-out'
+    , callback=CB.meta()
+    , default=True
+)
+@click.option(
+    '--x-err/--no-x-err'
+    , callback=CB.meta()
+    , default=True
+)
+@click.option(
+    '--x-show'
+    , callback=CB.meta()
+    , is_flag=True
+    , default=True
+    , help='disable showing the aws command line'
+)
+@click.option(
+    '--x-dry'
+    , callback=CB.meta()
+    , is_flag=True
+    , default=False
+    , help='just show the aws command (do not execute)'
+)
+@click.option(
+    '--profile'
+    , callback=CB.opt()
+    , default=config.PROFILE
+    , help="aws profile override"
+)
+@click.option(
+    '--dry-run'
+    , callback=CB.flag()
+    , is_flag=True
+    , flag_value=True
+)
 
 def keys(ctx,**opts):
+    """Handle aws keypairs
+
+    Option that start --x- are not passed to aws
+    """
     pass
 
+
+#######################################################3###
 @keys.command()
 @click.pass_context
-@click.option('--output', callback=CB.opt(), default='text', help='default: text')
-@click.option('--query',  callback=CB.opt(), default='KeyPairs[*].KeyName' )
-@click.option('--x-prefix',  callback=CB.post(), default='')
+@click.option(
+    '--output'
+    , callback=CB.opt()
+    , default='text'
+    , help='default: text'
+)
+@click.option(
+    '--query'
+    ,  callback=CB.opt()
+    , default='KeyPairs[*].KeyName'
+)
+@click.option(
+    '--x-prefix'
+    , callback=CB.post()
+    , default=''
+)
 
 def keys_list(ctx,**_):
+    """List all keypair names\n
+    """
     it = ctx.obj( "describe-key-pairs", die=True)
     names = it.stdout.split()
     names = [x for x in names if x.startswith(ctx.obj.post.prefix)]
     print(' '.join(names))
 
+
+#######################################################3###
 @keys.command()
 @click.pass_context
-@click.option('--output', callback=CB.opt(), default='text', help='default: text')
-@click.option('--query',  callback=CB.opt(), default='KeyMaterial')
-@click.argument( 'name' )
+@click.option(
+    '--output'
+    , callback=CB.opt()
+    , default='text'
+    , help='default: text'
+)
+@click.option(
+    '--query'
+    , callback=CB.opt()
+    , default='KeyMaterial'
+)
+@click.argument(
+    'name'
+)
 
 def keys_create(ctx,name,**opts):
+    """Create a keypair\n
+    """
     ctx.obj.add_option( 'key-name', name )
     ctx.obj( "create-key-pair").normal()
 
+
+#######################################################3###
 @keys.command()
 @click.pass_context
-@click.option('--output', callback=CB.opt, default='text', help='default: text')
+@click.option(
+    '--output'
+    , callback=CB.opt()
+    , default='text'
+    , help='default: text'
+)
 @click.argument( 'name' )
 
 def keys_delete(ctx,name,**_):
+    """Delete a keypair\n
+    """
     ctx.obj.add_option( 'key-name', name )
     ctx.obj( "delete-key-pair").normal()
 
+
+#######################################################3###
 @keys.command()
 @click.pass_context
 def keys_tmp_cleanup(ctx,**x):
+    """Cleanup keypairs\n
+    Remove all keypairs named [tmp.*]
+    """
     x=ctx.obj.x
     line=f'my.ec2 {x.profile} keys-list --x-prefix tmp.'
     for name in EZRUN( line, show=True ).stdout.split():
         line=f'my.ec2 {x.profile} keys-delete {name}'
         EZRUN(line, capture=False)
     exit('done')
+
 
 if __name__=='__main__':
     keys(obj=RUNNER)
