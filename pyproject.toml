@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "bump2version>=1.0.1",
     "click>=8.1.7",
     "colorama>=0.4.6",
     "pytest>=8.3.3",
