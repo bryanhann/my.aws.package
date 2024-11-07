@@ -1,0 +1,11 @@
+[project]
+name = "my-aws-package"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "click>=8.1.7",
+    "colorama>=0.4.6",
+    "pytest>=8.3.3",
+]

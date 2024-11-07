@@ -1,5 +1,7 @@
 __pycache__/
 .pytest_cache
 *.pyc
-hide
 .hide
+*.egg-info
+dist
+.mark.*
