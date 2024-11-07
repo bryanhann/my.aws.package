@@ -1,0 +1,262 @@
+{
+    "Reservations": [
+        {
+            "Groups": [],
+            "Instances": [
+                {
+                    "AmiLaunchIndex": 0,
+                    "ImageId": "ami-048ddca51ab3229ab",
+                    "InstanceId": "i-0dfb0f57e32926969",
+                    "InstanceType": "t2.micro",
+                    "KeyName": "ubuntu-server",
+                    "LaunchTime": "2024-10-18T21:58:16+00:00",
+                    "Monitoring": {
+                        "State": "disabled"
+                    },
+                    "Placement": {
+                        "AvailabilityZone": "ca-central-1a",
+                        "GroupName": "",
+                        "Tenancy": "default"
+                    },
+                    "PrivateDnsName": "ip-172-31-19-253.ca-central-1.compute.internal",
+                    "PrivateIpAddress": "172.31.19.253",
+                    "ProductCodes": [],
+                    "PublicDnsName": "",
+                    "State": {
+                        "Code": 80,
+                        "Name": "stopped"
+                    },
+                    "StateTransitionReason": "User initiated (2024-10-18 21:59:52 GMT)",
+                    "SubnetId": "subnet-051fcbe4e4f4cc521",
+                    "VpcId": "vpc-0bbcabbe9ced56c0e",
+                    "Architecture": "x86_64",
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1",
+                            "Ebs": {
+                                "AttachTime": "2024-08-27T12:17:27+00:00",
+                                "DeleteOnTermination": true,
+                                "Status": "attached",
+                                "VolumeId": "vol-023228db9418fafbb"
+                            }
+                        }
+                    ],
+                    "ClientToken": "54e02393-edc8-4ed4-a056-ff5642844b9e",
+                    "EbsOptimized": false,
+                    "EnaSupport": true,
+                    "Hypervisor": "xen",
+                    "NetworkInterfaces": [
+                        {
+                            "Attachment": {
+                                "AttachTime": "2024-08-27T12:17:26+00:00",
+                                "AttachmentId": "eni-attach-0c32edc586156e3f4",
+                                "DeleteOnTermination": true,
+                                "DeviceIndex": 0,
+                                "Status": "attached",
+                                "NetworkCardIndex": 0
+                            },
+                            "Description": "",
+                            "Groups": [
+                                {
+                                    "GroupName": "launch-wizard-3",
+                                    "GroupId": "sg-0b9a4ef40ee78a621"
+                                }
+                            ],
+                            "Ipv6Addresses": [],
+                            "MacAddress": "02:14:cf:d9:89:ef",
+                            "NetworkInterfaceId": "eni-070f015cea89a9375",
+                            "OwnerId": "058264240001",
+                            "PrivateDnsName": "ip-172-31-19-253.ca-central-1.compute.internal",
+                            "PrivateIpAddress": "172.31.19.253",
+                            "PrivateIpAddresses": [
+                                {
+                                    "Primary": true,
+                                    "PrivateDnsName": "ip-172-31-19-253.ca-central-1.compute.internal",
+                                    "PrivateIpAddress": "172.31.19.253"
+                                }
+                            ],
+                            "SourceDestCheck": true,
+                            "Status": "in-use",
+                            "SubnetId": "subnet-051fcbe4e4f4cc521",
+                            "VpcId": "vpc-0bbcabbe9ced56c0e",
+                            "InterfaceType": "interface"
+                        }
+                    ],
+                    "RootDeviceName": "/dev/sda1",
+                    "RootDeviceType": "ebs",
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "launch-wizard-3",
+                            "GroupId": "sg-0b9a4ef40ee78a621"
+                        }
+                    ],
+                    "SourceDestCheck": true,
+                    "StateReason": {
+                        "Code": "Client.UserInitiatedShutdown",
+                        "Message": "Client.UserInitiatedShutdown: User initiated shutdown"
+                    },
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "ubuntu-A"
+                        },
+                        {
+                            "Key": "nickname",
+                            "Value": "ubuntu-A"
+                        }
+                    ],
+                    "VirtualizationType": "hvm",
+                    "CpuOptions": {
+                        "CoreCount": 1,
+                        "ThreadsPerCore": 1
+                    },
+                    "CapacityReservationSpecification": {
+                        "CapacityReservationPreference": "open"
+                    },
+                    "HibernationOptions": {
+                        "Configured": false
+                    },
+                    "MetadataOptions": {
+                        "State": "applied",
+                        "HttpTokens": "optional",
+                        "HttpPutResponseHopLimit": 1,
+                        "HttpEndpoint": "enabled"
+                    },
+                    "EnclaveOptions": {
+                        "Enabled": false
+                    },
+                    "BootMode": "uefi-preferred"
+                }
+            ],
+            "OwnerId": "058264240001",
+            "ReservationId": "r-0dabb6e96d3cc2a02"
+        },
+        {
+            "Groups": [],
+            "Instances": [
+                {
+                    "AmiLaunchIndex": 0,
+                    "ImageId": "ami-0eb9fdcf0d07bd5ef",
+                    "InstanceId": "i-0dc8a16e949938dbf",
+                    "InstanceType": "t2.micro",
+                    "KeyName": "Ubunt-Bu-B",
+                    "LaunchTime": "2024-10-14T15:36:06+00:00",
+                    "Monitoring": {
+                        "State": "disabled"
+                    },
+                    "Placement": {
+                        "AvailabilityZone": "ca-central-1a",
+                        "GroupName": "",
+                        "Tenancy": "default"
+                    },
+                    "PrivateDnsName": "ip-172-31-16-11.ca-central-1.compute.internal",
+                    "PrivateIpAddress": "172.31.16.11",
+                    "ProductCodes": [],
+                    "PublicDnsName": "",
+                    "State": {
+                        "Code": 80,
+                        "Name": "stopped"
+                    },
+                    "StateTransitionReason": "User initiated (2024-10-14 23:26:48 GMT)",
+                    "SubnetId": "subnet-051fcbe4e4f4cc521",
+                    "VpcId": "vpc-0bbcabbe9ced56c0e",
+                    "Architecture": "x86_64",
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1",
+                            "Ebs": {
+                                "AttachTime": "2024-10-12T13:50:47+00:00",
+                                "DeleteOnTermination": true,
+                                "Status": "attached",
+                                "VolumeId": "vol-080f63066595abd9e"
+                            }
+                        }
+                    ],
+                    "ClientToken": "f467f840-6961-47d4-8663-df2700a601ac",
+                    "EbsOptimized": false,
+                    "EnaSupport": true,
+                    "Hypervisor": "xen",
+                    "NetworkInterfaces": [
+                        {
+                            "Attachment": {
+                                "AttachTime": "2024-10-12T13:50:47+00:00",
+                                "AttachmentId": "eni-attach-05aabbd0eafef55f2",
+                                "DeleteOnTermination": true,
+                                "DeviceIndex": 0,
+                                "Status": "attached",
+                                "NetworkCardIndex": 0
+                            },
+                            "Description": "",
+                            "Groups": [
+                                {
+                                    "GroupName": "launch-wizard-4",
+                                    "GroupId": "sg-05fb239a976a70488"
+                                }
+                            ],
+                            "Ipv6Addresses": [],
+                            "MacAddress": "02:72:bb:4b:b4:09",
+                            "NetworkInterfaceId": "eni-04190f1758091a5ac",
+                            "OwnerId": "058264240001",
+                            "PrivateDnsName": "ip-172-31-16-11.ca-central-1.compute.internal",
+                            "PrivateIpAddress": "172.31.16.11",
+                            "PrivateIpAddresses": [
+                                {
+                                    "Primary": true,
+                                    "PrivateDnsName": "ip-172-31-16-11.ca-central-1.compute.internal",
+                                    "PrivateIpAddress": "172.31.16.11"
+                                }
+                            ],
+                            "SourceDestCheck": true,
+                            "Status": "in-use",
+                            "SubnetId": "subnet-051fcbe4e4f4cc521",
+                            "VpcId": "vpc-0bbcabbe9ced56c0e",
+                            "InterfaceType": "interface"
+                        }
+                    ],
+                    "RootDeviceName": "/dev/sda1",
+                    "RootDeviceType": "ebs",
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "launch-wizard-4",
+                            "GroupId": "sg-05fb239a976a70488"
+                        }
+                    ],
+                    "SourceDestCheck": true,
+                    "StateReason": {
+                        "Code": "Client.UserInitiatedShutdown",
+                        "Message": "Client.UserInitiatedShutdown: User initiated shutdown"
+                    },
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "ubuntu-B"
+                        }
+                    ],
+                    "VirtualizationType": "hvm",
+                    "CpuOptions": {
+                        "CoreCount": 1,
+                        "ThreadsPerCore": 1
+                    },
+                    "CapacityReservationSpecification": {
+                        "CapacityReservationPreference": "open"
+                    },
+                    "HibernationOptions": {
+                        "Configured": false
+                    },
+                    "MetadataOptions": {
+                        "State": "applied",
+                        "HttpTokens": "required",
+                        "HttpPutResponseHopLimit": 2,
+                        "HttpEndpoint": "enabled"
+                    },
+                    "EnclaveOptions": {
+                        "Enabled": false
+                    },
+                    "BootMode": "uefi-preferred"
+                }
+            ],
+            "OwnerId": "058264240001",
+            "ReservationId": "r-0febbaef590d5b8c0"
+        }
+    ]
+}

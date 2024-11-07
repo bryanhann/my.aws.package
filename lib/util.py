@@ -32,3 +32,11 @@ def ezrun(line, capture=True, show=False):
         it.stderr = it.stderr.decode('utf-8')
     return it
 
+def note(*a):
+    b = [ str(x) for x in a ]
+    b = ' '.join(b)
+    stdout( f"note: {b}" )
+
+def abort(*a):
+    note( 'abort:', *a )
+    exit(1)

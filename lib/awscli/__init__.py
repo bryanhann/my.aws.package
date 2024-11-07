@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+"""
+For each aws command [some_aws_command], define a
+class [SOME_AWS_COMMAND] that wraps the output of
+an invokation of the command. This class must reside
+in the file [./some_aws_command.py] and such file
+must defin and alias [ROOT=SOME_AWS_COMMAND] to
+its [SOME_AWS_COMMAND] class
+
+Clients are expected to use these commands via
+and instances of class [INVOKER] initialized with
+an aws profile name, eg:
+
+    >>> invoker=INVOKER('bob')
+
+Following such instantiation, use is as follows:
+
+    >>> invoker.some_aws_command
+
+This invokes execution of the command
+
+    [aws some-aws-command --profile bob --output json]
+
+and evaluates to a SOME_AWS_COMMAND object wrapping
+its output, eg:
+
+    >>> from call.ec2 import INVOKER
+    >>> xxx = INVOKER('bob')
+    >>> obj = xxx.some_command
+    >>> # aws ecw some-command --profile bob --output json
+    >>> from call.ec2.some_command import SOME_COMMAND
+    >>> assert obj.__class__ == SOME_COMMAND
+"""
+
+from .wrapping import Wrap
