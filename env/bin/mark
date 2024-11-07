@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+. src:fn
+. src:cli
+
+name4path () {
+    echo $(basename $1)
+}
+isnew_or_die () {
+    fn.head_isin_tail $1 $(list-names) || return
+    cli.die "echo already used: [$1]"
+}
+
+cmd_list       () { list        ; }
+cmd_list-names () { list-names  ; }
+cmd_list-dirs  () { list-dirs   ; }
+cmd_get-name   () { get-name $1 ; }
+cmd_get-dir    () { get-dir $1  ; }
+cmd_add        () { add $1      ; }
+
+list        () { find $MY_ROOT -name ".mark.*" -print;  }
+list-names  () { fn.map basename $(list); }
+list-dirs   () { fn.uniq $(fn.map dirname $(list)); }
+get-dir () {
+    # of all marked directories, echo the ones whose 
+    # basename matches $1
+    for p in $(list-dir); do
+        [ $1. == $(name4path $p). ] && echo $p
+    done
+}
+get-name () {
+    for p in $(list); do
+        [ .mark.$1. == $(name4path $p). ] || continue
+        echo $p
+    done
+}
+add() {
+    new=".mark.$1"
+    isnew_or_die ${new}
+    echo touch ./${new}
+    touch      ./${new}
+}
+
+cli.MAIN "${@}"
+

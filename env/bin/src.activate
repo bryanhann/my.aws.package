@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+echo 888888888
+
+g () {
+    dst=$(mark get-dir $1 )
+    [ ! .$dst == . ] && pushd $dst && return
+
+    dst=$(mark get-name $1 )
+    [ ! .$dst == . ] && pushd $(dirname $dst) && return
+}
+
+alias ebin="cd $MY_ROOT/env/bin"

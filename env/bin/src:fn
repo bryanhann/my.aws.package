@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+fn.map () {
+    local fn=$1 ; shift
+    for item in ${@}; do echo $($fn $item); done
+}
+
+fn.filter () {
+    local fn=$1; shift
+    for item in ${@}; do ($fn $item) && echo ${item}; done
+}
+
+fn.head_isin_tail() {
+    target=${1}
+    shift
+    for item in "${@}"; do
+        [ .${target} == .${item} ] && return 0
+    done
+    return 1
+}
+
+fn.uniq() {
+    while [ $1. != . ]; do
+        fn.head_isin_tail "$@" || echo ${1}
+        shift
+    done
+}
+

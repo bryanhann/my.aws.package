@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+cli.die () {
+    echo $(basename $0): "${@}"
+    exit 1
+}
+
+cli.commands () {
+    for cmd in $(set | grep ^cmd_ ); do
+        [ ${cmd:0:4}. == cmd_. ] && echo ${cmd:4}
+    done
+}
+
+cli.cmd4name () {
+    for cmd in $(cli.commands); do
+        [ .$1 == .$cmd ] && echo $cmd && return
+    done
+}
+
+cli.usage () {
+     echo USAGE:
+     echo "    $(basename $0) SUBCOMMAND [args]"
+     echo "SUBCOMMANDS:"
+     for cmd in $(cli.commands); do
+         echo "    ${cmd}"
+     done
+
+     cli.die $*
+}
+
+cli.MAIN () {
+    cmd=$(cli.cmd4name $1) || { cmd_help;  cli.die "unknown command: [$1] try --help"; }
+    shift
+    cmd_${cmd} "$@"
+}
+
+cmd_help  () { cli.usage; }
