@@ -1,4 +1,8 @@
-my-aws
+NEW:
+    1) $ ./my.shell
+    2) $ run [my.demo|my.aws|my.ec2]
+
+OLD:
 
 A command suite to manipulate ec2 instances.
 

@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 SCRIPT=${MY_ROOT}/scripts/$(basename $1)
-echo 77777 $SCRIPT $*
-exit
 shift
 PYTHONPATH=${MY_ROOT}/lib
 uv python install 3.12

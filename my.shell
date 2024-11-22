@@ -4,6 +4,7 @@ export MY_ROOT=${PWD}
 popd > /dev/null
 [ $MAGIC_876395_LOADED. == . ] && {
     export MAGIC_876395_LOADED=1
+    export PATH=${PATH}:${MY_ROOT}/env
     export PATH=${PATH}:${MY_ROOT}/env/bin
     export PATH=${PATH}:${MY_ROOT}/scripts
     export PYTHONPATH=${MY_ROOT}/lib:${MY_ROOT}/lib2
